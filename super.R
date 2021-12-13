@@ -329,21 +329,31 @@ enter below the number associated, immediately followed by HELP
   df_import <- function(){
     cat(bold("\nImport a Dataframe"), "\n\nYou will have to give your dataframe a name.", sep = "")
     e.super$dfname <- naming("dataframe", df_select())
-    file <- df_choosefile()
-    e.super$df <- import(file)
+    e.super$df <- import()
     assign(e.super$dfname[1], e.super$df, envir = .GlobalEnv)
     main()
   }
-  df_choosefile <- function(){
+  import <- function(){
     file <- tryCatch({file <- file.choose()}, error = function(ex){})
     if(is.null(file)){
       cat("You pressed cancel, meaning you did not select a file.")
       again <- readline("Type anything to choose again, or !!! to go back to the options: ")
       back(again, df_select())
-      df_choosefile()
+      import()
     }
     else{
-      return(file)
+      file <- tolower(file)
+      basename <- basename(file)
+      extension <- tools::file_ext(file)
+      
+      df <- switch(extension,
+                   "sas7bdat" = haven::read_sas(file, ...),
+                   "dta" = haven::read_stata(file, ...),
+                   "sav" = haven::read_spss(file, ...),
+                   "xlsx" = readxl::read_excel(file, ...),
+                   "xls" = readxl::read_excel(file, ...),
+                   vroom::vroom(file, ...))
+      return(df)
     }
   }
   
