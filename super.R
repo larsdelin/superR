@@ -347,12 +347,12 @@ enter below the number associated, immediately followed by HELP
       extension <- tools::file_ext(file)
       
       df <- switch(extension,
-                   "sas7bdat" = haven::read_sas(file, ...),
-                   "dta" = haven::read_stata(file, ...),
-                   "sav" = haven::read_spss(file, ...),
-                   "xlsx" = readxl::read_excel(file, ...),
-                   "xls" = readxl::read_excel(file, ...),
-                   vroom::vroom(file, ...))
+                   "sas7bdat" = haven::read_sas(file),
+                   "dta" = haven::read_stata(file),
+                   "sav" = haven::read_spss(file),
+                   "xlsx" = readxl::read_excel(file),
+                   "xls" = readxl::read_excel(file),
+                   vroom::vroom(file))
       return(df)
     }
   }
