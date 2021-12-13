@@ -17,17 +17,25 @@ supersummary <- function(x){
     print(summary(x))
   }
   if (option == 4) {
-    missing <- sum(is.na(x))
-    if (missing > 1) {
-      cat("This dataset has ", missing, " missing values.\nGo back to the main menu to handle this missing data")
+    dta <- data.frame()
+    for (i in 1:length(x)){
+      missing <- sum(is.na(x[i]))
+      dta[i,1] <- colnames(x[i])
+      dta[i,2] <- missing
     }
-    if (missing == 1) {
-      cat("This dataset has 1 missing value.\nGo back to the main menu to handle this missing data")
-    }
-    else {
-      cat("No missing data detected in this dataset.\n",
-          "Tip: check dataset codebook if avaiable to determine if any missing data is encoded as a distinct value (ex. 999).")
-    }
+    names(dta) <- c("Vars", "Miss")
+    print(dta)
+    
+    #if (missing > 1) {
+    #  cat("This dataset has ", missing, " missing values.\nGo back to the main menu to handle this missing data")
+   # }
+   # if (missing == 1) {
+ #     cat("This dataset has 1 missing value.\nGo back to the main menu to handle this missing data")
+#    }
+ #   else {
+ #     cat("No missing data detected in this dataset.\n",
+  #        "Tip: check dataset codebook if avaiable to determine if any missing data is encoded as a distinct value (ex. 999).")
+ #   }
   }
   cat("\n", "--------------", "\n", "\n")
   supersummary(x)
