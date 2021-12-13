@@ -14,7 +14,7 @@ supersummary <- function(x){
     str(x)
   }
   if (option == 3) {
-    summary(x)
+    print(summary(x))
   }
   if (option == 4) {
     missing <- sum(is.na(x))
@@ -25,8 +25,10 @@ supersummary <- function(x){
       cat("This dataset has 1 missing value.\nGo back to the main menu to handle this missing data")
     }
     else {
-      cat("No missing data detected in this dataset.\n
-          Tip: check dataset codebook if avaiable to determine if any missing data is encoded as a distinct value (ex. 999).")
+      cat("No missing data detected in this dataset.\n",
+          "Tip: check dataset codebook if avaiable to determine if any missing data is encoded as a distinct value (ex. 999).")
     }
   }
+  cat("\n", "--------------", "\n", "\n")
+  supersummary(x)
 }
