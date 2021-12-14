@@ -37,7 +37,11 @@ mreg <- function(formula, data){
 # just to test 
 data <- mtcars
 
-#check warning message at the end of regression when saying no help
+#1. check warning message at the end of regression that says In while (input2 == 0) { :
+#   the condition has length > 1 and only the first element will be used when saying no help
+#2. Ensure variables are suitable for multiple regression and what type or class does
+#   the dependent variable and independent variable has to be
+#3. 
 super.mreg <- function(){
   #Intro to function ----
   cat("Welcome to conducting a multiple regression!", "\n",
