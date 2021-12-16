@@ -152,7 +152,7 @@ seperately so that you can see the results of the multiple regression more clear
         cat(bold(magenta("On the right is your general dominance plot!")),
             "\nThis plot shows you the average importance of each independent variable relative to all the other
 independent variables included in the multiple regression", sep="")
-        rela_fit <- lm(formula, mtcars)
+        rela_fit <- lm(formula, df)
         da_df <- dominanceAnalysis(rela_fit)
         rp <- plot(da_df) + coord_flip() +
           theme(legend.position= "none")
