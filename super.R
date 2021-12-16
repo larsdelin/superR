@@ -1,3 +1,4 @@
+
 super <- function(){
   e.super <- new.env(parent = emptyenv())
   e.super$df <- NULL
@@ -16,7 +17,7 @@ If at any point you would like to exit the program, press the esc key
 Let's begin!")
   
   cat("\n\nTo get started, you will need a dataframe.")
-
+  
   # Back: -----------
   #_________________________________
   back <- function(x, backto, df = e.super$df, dfname = e.super$dfname){
@@ -65,8 +66,8 @@ Let's begin!")
     error <- c()
     for(i in name_sep){
       error[[i]] <- ifelse(identical(".", i) | 
-                       identical("_", i) | 
-                       identical("-", i) , FALSE,
+                             identical("_", i) | 
+                             identical("-", i) , FALSE,
                            ifelse(grepl("[[:punct:]]", i), TRUE, 
                                   ifelse(identical(" ", i), TRUE, FALSE)))}
     error <- unlist(error)
@@ -105,8 +106,8 @@ Bad examples:
   - _Patients
   - patients??
   - 100patients\n")}
-          if(nametype == "variable"){
-            cat("\nLet's say you want to name a variable that shows the sex of a patient at a hospital
+        if(nametype == "variable"){
+          cat("\nLet's say you want to name a variable that shows the sex of a patient at a hospital
 
 Good examples:
   - sex
@@ -119,7 +120,7 @@ Bad examples:
   - _sex
   - sex??
   - 2sex\n")}
-        }
+      }
       if(nametype == "dataframe"){
         name <- readline("Enter what you would like to name the dataframe: ")}
       if(nametype == "variable"){
@@ -139,7 +140,7 @@ Bad examples:
         if(nametype == "dataframe"){
           if(exists(name, envir = .GlobalEnv, inherits = FALSE)){
             cat(red$bold("\nWarning: "), red("The name you chose is one that is already being used by something in your global environment."), 
-               "\n\nYou may want to provide a different name.
+                "\n\nYou may want to provide a different name.
 If you use choose to use this name, it will ", red$bold("replace"), " the other element, even if it is not a dataframe.
 
 Do you want to:
@@ -152,10 +153,10 @@ Do you want to:
             if(option == "1"){
               e.super$name <- name
               break}
-            }
+          }
           else{e.super$name <- name
           break}
-          }
+        }
         if(nametype == "variable"){
           if(name %in% names(df)){
             cat(red$bold("\nWarning: "), red("The name you chose is one that is already the name of a variable in the dataframe '"),
@@ -163,12 +164,12 @@ Do you want to:
                 "'.\n\nYou will have to choose a different name.")}
           else{e.super$name <- name
           break}}
-        }
       }
     }
+  }
   
   # Variable Name: -----------
-
+  
   varname <- function(dothis, backto, solo = 0, df = e.super$df, dfname = e.super$dfname){
     e.super$variables <- NULL
     if(solo == 1){
@@ -251,29 +252,29 @@ or one or more of the variables you entered is not one of the variable names in 
             break}
         }
       }
-     }
+    }
   }
-
-    
+  
+  
   
   # Main: -----------
   main <- function(){
     cat(bold("\nWelcome to the "), bold$underline("Main Menu"),
-          "\nHere, you will see the different 'main' options you have for this program
+        "\nHere, you will see the different 'main' options you have for this program
       
 If at any point you would like to come back to the main menu, just type ", green$bold("!!!main"), 
-          "\n\nHere is the menu of overaching options:
+        "\n\nHere is the menu of overaching options:
   1. Choose a Dataframe
   2. Understand your Dataframe
   3. Manage/Change the Contents of your Dataframe
   4. Analyse you Dataframe
       
 If you would like to learn more about an option, type HELP", sep = "")
-      
+    
     option <- readline("Type the number associated or (the number)HELP: ")
     while(!(option %in% 1:4 | option == "HELP")){
-    cat(red$bold("\nError: "), red("You did not select one of the options or HELP."), sep = "")
-    option <- readline("Type the number associated or HELP: ")
+      cat(red$bold("\nError: "), red("You did not select one of the options or HELP."), sep = "")
+      option <- readline("Type the number associated or HELP: ")
     }
     main_options(option)
   }
@@ -458,7 +459,7 @@ Would you like to see:
         break
       }
       cat("\n", "--------------", "\n", "\n")
-        
+      
     }
   }
   
@@ -541,13 +542,13 @@ Would you like to:
         break}
     }
   }
-
+  
   #_______________________________________________
   # Subset:
   
   subset_select <- function(){
     cat(bold("\n\nSubsetting Options"), 
-"\n\nDo you want to:
+        "\n\nDo you want to:
   1. Remove specific variables
   2. Keep specific variables
   3. Remove specific observations
@@ -559,7 +560,7 @@ Would you like to:
       subset_options(option)
     }
   }
-  subset_options <- function(option, df = e.super$df, dfname = e.super$dfname){
+  subset_options <- function(option, df = e.super$df, dfname = e.super$dfname, variables = e.super$variables){
     if(option == "1"){
       cat(bold("\nRemove Specific Variables"))
       varname("remove", subset_select())
@@ -578,6 +579,7 @@ Would you like to:
     }
     if(option == "3"){
       cat(bold("\nRemove Specific Observations"))
+      
       varname("use as constraint(s)", subset_select())
       if(!(is.null(variables))){
         filtering()
@@ -732,7 +734,7 @@ Is the variable:
           }
         }
         if(length(temp) > 0){
-          cat("Unfortunately these observations were not coerible into class numeric:", temp)
+          cat("Unfortunately these variables were not coerible into class numeric:", temp)
         } 
         else {
           cat("All specified variables were changed to class numeric")
@@ -751,15 +753,16 @@ Is the variable:
           if (length(try) == 2){
             for (n in 1:length(df[[i]])){
               if (df[[i]][[n]] == try[1]){
-                df[[i]][[n]] <- 0
+                df[[i]][[n]] <- FALSE
               }
               if (df[[i]][[n]] == try[2]){
-                df[[i]][[n]] <- 1
+                df[[i]][[n]] <- TRUE
               }
             }
             df[[i]] <- as.logical(df[[i]])
             cat(try[1], "recoded as: FALSE\n", try[2], "recoded as: TRUE\n")
-          } else {
+          } 
+          else {
             append(temp, i)
           }
         }
@@ -808,7 +811,7 @@ Is the variable:
       }
     } 
   }
-
+  
   # 4. Analyse: -----------
   super.mreg <- function(){
     df <- e.super$df

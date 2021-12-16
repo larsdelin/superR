@@ -2,7 +2,7 @@
 #'Clean and Analyze Data
 #'
 #'@description
-#'This package is for new R users who want to summarize, clean and analyze their dataset without having
+#'This package is for new R users who want to summarize, clean and analyze their data set without having
 #'to know any functions other than super()
 #'
 #'@param 
@@ -24,5 +24,5 @@
 #'@import crayon
 #'
 #'@examples
-#' super()
+#'super()
 #'
