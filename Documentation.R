@@ -1,32 +1,28 @@
-#’@title Import a dataset
+#'@title 
+#'Clean and Analyze Data
 #'
-#’@description
-#’The import function can import data from delimited text files, excel spreadsheets, and statistical packages such as SAS, SPSS, and STATA
-#’@param file datafile to import. If missing, the user is prompted to select a file interactively.
-#'@param ... parameters passed to the import function. See details.
+#'@description
+#'This package is for new R users who want to summarize, clean and analyze their dataset without having
+#'to know any functions other than super()
 #'
-#'@return a data frame
+#'@param 
 #'
-#'@details put details in here!
+#'@return 
+#'
+#'@details 
 #'
 #'@export
 #'
-#'@importFrom haven read_sas read_stata read_spss
-#'@importFrom readxl read_excel
-#'@import vroom
-#'@importFrom tools file_ext
+#'@import rlang
+#'@import dplyr
+#'@import ggeffects
+#'@import ggplot2
+#'@import effects
+#'@import patchwork
+#'@import dominanceanalysis
+#'@import stats
+#'@import crayon
 #'
 #'@examples
-#'\dontrun{
-#' # import a comma delimited file
-#' my dataframe <- import("mydata.csv")
+#' super()
 #'
-#' # import a SAS binary data file
-#' mydataframe <- import("mydata.sas7bdat")
-#'
-#'  # import the second worksheet of an Excel workbook
-#'  mydataframe <- import
-#'
-#'  # prompt for a file to import
-#'  mydataframe <- import()
-#'  }
